@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -35,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        CheckBox whippedCreamCheckbox = (CheckBox) findViewById(R.id.whipped_cream_check_box);
+
+        boolean hasWhippedCream = whippedCreamCheckbox.isChecked();
         int price = calculatePrice();
-        boolean hasWhippedCream = false;
 
-
-
-        String summaryMessage = createOrderSummary(price);
+        String summaryMessage = createOrderSummary(price, hasWhippedCream);
         displayMessage(summaryMessage);
 
         //String priceMessage = "Total = $" + price;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * This method enables or disables the order button.
      */
@@ -108,10 +110,11 @@ public class MainActivity extends AppCompatActivity {
         return price;
     }
 
-    private String createOrderSummary(int price){
+    private String createOrderSummary(int price, boolean hasWhippedCream){
         String message;
 
         message = "Name: Kwontum Kwon\n" +
+                "Add whipped cream? " + hasWhippedCream + "\n" +
                 "Quantity: " + numberOfCoffees + "\n" +
                 "Total: $" + price + "\n" +
                 "Thank you!";
